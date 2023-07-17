@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .inv-table-spacing {
+    border-spacing: theme("spacing.3");
+  }
+
+  .t1-head {
+    @apply py-3 pr-6 text-base font-medium text-gray-light capitalize;
+  }
+
+  .t1-data {
+    @apply py-4 pr-6 text-base font-medium whitespace-nowrap dark:text-white;
+  }
+
+  .t2-head {
+    @apply pr-6 font-normal text-base capitalize;
+  }
+
+  .t2-data {
+    @apply h-6 py-3 px-6 mb-1 text-base font-normal whitespace-nowrap bg-gray-light-2 rounded-xl focus:outline-none dark:bg-gray-700;
+  }
+}

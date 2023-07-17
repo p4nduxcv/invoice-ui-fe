@@ -1,4 +1,7 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ICurrency, IInvoice, IInvoiceFormData } from 'src/app/data/schema';
 
 @Component({
   selector: 'app-invoice-create',
@@ -7,9 +10,130 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvoiceCreateComponent implements OnInit {
 
-  constructor() { }
+  currencyList: ICurrency[] = [];
+  invoiceId: string = '';
+  invoiceData!: IInvoiceFormData;
+  invoiceList: IInvoice[] = [];
+  newInvoice!: IInvoice;
+  total: number = 0;
+
+  constructor(private currencyPipe: CurrencyPipe) {
+    this.invoiceData = {} as IInvoiceFormData;
+  }
 
   ngOnInit() {
+    this.currencyList = [
+      { value: 1, label: 'NOK' },
+      { value: 2, label: 'LKR' },
+      { value: 3, label: 'EUR' },
+      { value: 4, label: 'SGD' },
+      { value: 5, label: 'AUD' },
+    ];
+    this.invoiceId = 'NR 00101/08/2023';
+
+    // For table
+    this.invoiceList = [
+      {
+        id: 1,
+        description: 'First Page',
+        price: 200,
+        quantity: 2,
+        total_amount: 0,
+      },
+      {
+        id: 2,
+        description: 'Second Page',
+        price: 800,
+        quantity: 5,
+        total_amount: 0,
+      },
+      {
+        id: 3,
+        description: 'Third Page',
+        price: 500,
+        quantity: 2,
+        total_amount: 0,
+      },
+    ];
+    this.calculateTotalHandler();
+  }
+
+  invoiceForm = new FormGroup({
+    bill_from: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    bill_to: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    title: new FormControl('', Validators.required),
+    currency: new FormControl(''),
+  });
+
+  get f() {
+    return this.invoiceForm.controls;
+  }
+
+  submit() {
+    console.log(this.invoiceForm.value);
+  }
+
+  // Format price for total amount calculation
+  getFormattedPrice(item?: IInvoice) {
+    this.invoiceList.forEach((e) => {
+      if (item) {
+        if (!item.price.startsWith('$')) {
+          if (e.id === item.id) {
+            e.price =
+              this.currencyPipe.transform(item.price, 'USD', 'symbol') || '';
+          }
+        }
+      } else {
+        e.price =
+          this.currencyPipe.transform(e.price, 'USD', 'symbol') || '';
+      }
+    });
+  }
+
+  // Calculate total amount of the invoice table
+  calculateTotalHandler(): void {
+    this.total = 0;
+    for (const item of this.invoiceList) {
+      if (typeof item.price !== 'number') {
+        let updatedPrice = item.price.substring(1);
+        let updatedPriceNumber: number = parseFloat(updatedPrice);
+
+        item.total_amount = updatedPriceNumber * item.quantity;
+        this.total += item.total_amount;
+      } else {
+        item.total_amount = item.price * item.quantity;
+        this.total += item.total_amount;
+      }
+    }
+  }
+
+  // On table data update
+  onCellValueChange(): void {
+    this.calculateTotalHandler();
+  }
+
+  // Add a new row
+  addRow(): void {
+    this.newInvoice = {
+      id: this.invoiceList.length + 1,
+      description: '',
+      price: 0,
+      quantity: 0,
+      total_amount: 0,
+    };
+    this.invoiceList.push(this.newInvoice);
+  }
+
+  // Adding navigation for detail page
+  navigateTo(route: string): void {
+    window.open(route, '_blank');
   }
 
 }

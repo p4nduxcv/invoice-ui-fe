@@ -1,3 +1,333 @@
-<p>
-  invoice-create works!
-</p>
+<!-- Header Section -->
+<div class="p-6 sm:px-10 pt-6 pb-0 sm:pb-10">
+  <div>
+      <h4 class="text-xl font-bold">Create New Invoice</h4>
+      <div class="block my-6">
+          <div class="grid sm:float-left sm:flex">
+              <h1 class="text-2xl font-bold">Invoice&nbsp;</h1>
+              <h1 class="mt-6 sm:mt-0 text-2xl font-bold text-primary dark:text-primary-thm-dark">#{{invoiceId}}</h1>
+          </div>
+          <div
+              class="mt-0 text-base font-medium text-gray-light float-right flex cursor-pointer relative sm:static -top-7 sm:top-auto hover:text-gray-dark">
+              <div class="inline-block relative sm:hidden">
+                  <div class="tooltip-icon">
+                      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 pr-2">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244">
+                          </path>
+                      </svg>
+                  </div>
+              </div>
+
+              <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 pr-2 hidden sm:block">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244">
+                  </path>
+              </svg>
+              <span class="hidden sm:block">Copy Link</span>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Form Details  -->
+<div class="p-6 sm:px-10 pt-4 pb-10">
+  <h4 class="text-xl font-bold">Details</h4>
+  <div class="mx-auto my-5">
+      <form class="w-full text-base" [formGroup]="invoiceForm" (ngSubmit)="submit()" novalidate>
+          <!-- Name Fields  -->
+          <div class="flex flex-wrap -mx-3 mb-4">
+              <!-- Bill From  -->
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label for="bill_from" class="block capitalize mb-2">
+                      Bill From
+                  </label>
+                  <input type="text" id="bill_from" formControlName="bill_from" placeholder="Reza Raharjo"
+                      class="appearance-none block w-full bg-gray-light-2 rounded-xl py-3 px-4 mb-1 focus:outline-none dark:bg-gray-700 dark:placeholder-gray-light"
+                      [ngClass]="{ 'border border-solid border-red bg-red bg-opacity-5 dark:border-red-light': (f.bill_from.touched && f.bill_from.invalid) }"
+                      minlength="3" tabindex="1" required>
+                  <div *ngIf="f.bill_from.touched && f.bill_from.invalid"
+                      class="text-red dark:text-red-light text-sm">
+                      <ng-container *ngIf="f.bill_from.errors && f.bill_from.errors['required']">
+                          This field is required.
+                      </ng-container>
+                      <ng-container *ngIf="f.bill_from.errors && f.bill_from.errors['minlength']">
+                          This field must be at least 3 characters long.
+                      </ng-container>
+                  </div>
+              </div>
+              <!-- Bill To  -->
+              <div class="w-full md:w-1/2 px-3">
+                  <label for="bill_to" class="block capitalize mb-2">
+                      Bill To
+                  </label>
+                  <input type="text" id="bill_to" formControlName="bill_to" placeholder="Ghyan Gundono"
+                      class="appearance-none block w-full bg-gray-light-2 rounded-xl py-3 px-4 mb-1 focus:outline-none dark:bg-gray-700 dark:placeholder-gray-light"
+                      [ngClass]="{ 'border border-solid border-red bg-red bg-opacity-5 dark:border-red-light': (f.bill_to.touched && f.bill_to.invalid) }"
+                      minlength="3" tabindex="2" required>
+                  <div *ngIf="f.bill_to.touched && f.bill_to.invalid" class="text-red dark:text-red-light text-sm">
+                      <ng-container *ngIf="f.bill_to.errors && f.bill_to.errors['required']">
+                          This field is required.
+                      </ng-container>
+                      <ng-container *ngIf="f.bill_to.errors && f.bill_to.errors['required']">
+                          This field must be at least 3 characters long.
+                      </ng-container>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Email Field  -->
+          <div class="flex flex-wrap -mx-3 mb-4">
+              <div class="w-full px-3">
+                  <label for="email" class="block capitalize mb-2">
+                      Recipient Email
+                  </label>
+                  <input type="email" id="email" formControlName="email" placeholder="******@*****"
+                      class="appearance-none block w-full bg-gray-light-2 rounded-xl py-3 px-4 mb-1 focus:outline-none dark:bg-gray-700 dark:placeholder-gray-light"
+                      [ngClass]="{ 'border border-solid border-red bg-red bg-opacity-5 dark:border-red-light': (f.email.touched && f.email.invalid) }"
+                      tabindex="3" required>
+                  <div *ngIf="f.email.touched && f.email.invalid" class="text-red dark:text-red-light text-sm">
+                      <ng-container *ngIf="f.email.errors && f.email.errors['required']">
+                          This field is required.
+                      </ng-container>
+                      <ng-container *ngIf="f.email.errors && f.email.errors['email']">
+                          Email address is invalid
+                      </ng-container>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Title/Description Field  -->
+          <div class="flex flex-wrap -mx-3 mb-4">
+              <div class="w-full px-3">
+                  <label for="title" class="block capitalize mb-2">
+                      Bill Title/Project Descriptions
+                  </label>
+                  <input type="text" id="title" formControlName="title" placeholder="Project Name"
+                      class="appearance-none block w-full bg-gray-light-2 rounded-xl py-3 px-4 mb-1 focus:outline-none dark:bg-gray-700 dark:placeholder-gray-light"
+                      [ngClass]="{ 'border border-solid border-red bg-red bg-opacity-5 dark:border-red-light': (f.title.touched && f.title.invalid) }"
+                      tabindex="4" required>
+                  <div *ngIf="f.title.touched && f.title.invalid" class="text-red dark:text-red-light text-sm">
+                      <ng-container *ngIf="f.title.errors && f.title.errors['required']">
+                          This field is required.
+                      </ng-container>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Date Fields  -->
+          <!-- Issued Date  -->
+          <div class="flex flex-wrap -mx-3 mb-4">
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label for="bill_from" class="block capitalize mb-2">
+                      Issued On
+                  </label>
+                  <div class="relative">
+                      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                          <svg class="w-4 h-4 text-gray-light" aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                              <path
+                                  d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                          </svg>
+                      </div>
+                      <input datepicker datepicker-autohide datepicker-format="M dd,yyyy" type="text"
+                          class="h-12 w-full bg-gray-light-2 rounded-xl py-3 px-4 mb-1 focus:outline-none block pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-light dark:text-white"
+                          placeholder="Mar 11, 2023" tabindex="5">
+                  </div>
+              </div>
+              <!-- Due Date  -->
+              <div class="w-full md:w-1/2 px-3">
+                  <label for="bill_from" class="block capitalize mb-2">
+                      Due On
+                  </label>
+                  <div class="relative">
+                      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                          <svg class="w-4 h-4 text-gray-light" aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                              <path
+                                  d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                          </svg>
+                      </div>
+                      <input datepicker datepicker-autohide datepicker-format="M dd,yyyy" type="text"
+                          class="h-12 w-full bg-gray-light-2 rounded-xl py-3 px-4 mb-1 focus:outline-none block pl-10 p-2.5 dark:bg-gray-700 dark:placeholder-gray-light dark:text-white"
+                          placeholder="Mar 11, 2023" tabindex="6">
+                  </div>
+              </div>
+          </div>
+
+          <!-- Checkbox Field  -->
+          <div class="flex items-center">
+              <input type="checkbox" id="invCheckbox"
+                  class="mr-2 h-5 w-5 text-primary border-gray-dark rounded focus:outline-none dark:bg-gray-700 dark:text-primary-thm-dark"
+                  tabindex="7">
+              <label for="myCheckbox" class="text-gray-700 dark:text-white">This is a recurring invoice
+                  (Monthly)</label>
+          </div>
+
+          <!-- Invoice Item  -->
+          <div>
+              <h4 class="text-xl font-bold my-6">Invoice Item</h4>
+
+              <!-- Currency Field  -->
+              <div class="flex flex-wrap -mx-3 mb-4">
+                  <div class="w-full px-3">
+                      <label for="currency" class="block capitalize mb-2">
+                          Currency
+                      </label>
+                      <select formControlName="currency" id="currency"
+                          class="block w-full bg-gray-light-2 rounded-xl py-3 px-4 mb-1 border-r-8 border-gray-light-2 focus:outline-none dark:bg-gray-700 dark:placeholder-gray-light dark:border-gray-700">
+                          <option value="" disabled selected>Select an option</option>
+                          <option *ngFor="let currency of currencyList" [value]="currency.value">{{ currency.label }}
+                          </option>
+                      </select>
+                  </div>
+              </div>
+
+              <!-- Table Section  -->
+              <div>
+                  <div class="flex flex-col sm:-mx-3">
+                      <div class="overflow-x-auto">
+                          <div class="inline-block min-w-full align-middle">
+                              <div class="overflow-hidden ">
+                                  <table
+                                      class="min-w-full table-fixed border-separate inv-table-spacing pb-4 dark:divide-gray-700">
+                                      <thead>
+                                          <tr>
+                                              <th scope="col"
+                                                  class="t2-head text-left">
+                                                  Item
+                                              </th>
+                                              <th scope="col"
+                                                  class="t2-head text-right">
+                                                  Price
+                                              </th>
+                                              <th scope="col"
+                                                  class="t2-head text-right">
+                                                  Qty
+                                              </th>
+                                              <th scope="col"
+                                                  class="t2-head text-right">
+                                                  Total Price
+                                              </th>
+                                              <th scope="col"
+                                                  class="max-w-50 pr-6 text-base font-medium text-left text-gray-light capitalize">
+                                              </th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr class="h-6" *ngIf="invoiceList.length == 0">
+                                              <td
+                                                  class="t2-data text-gray-light text-left">
+                                                  Item Name
+                                              </td>
+                                              <td
+                                                  class="t2-data text-gray-light text-right">
+                                                  $500.00
+                                              </td>
+                                              <td
+                                                  class="t2-data text-gray-light text-right">
+                                                  2
+                                              </td>
+                                              <td
+                                                  class="t2-data text-gray-light text-right">
+                                                  $1000.00
+                                              </td>
+                                              <td
+                                                  class="max-w-50 h-6 py-2 px-6 text-base font-normal text-gray-light float-right whitespace-nowrap dark:text-white dark:bg-opacity-0 dark:hover:bg-opacity-0">
+                                                  <svg fill="none" stroke="currentColor" stroke-width="1.5"
+                                                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                      aria-hidden="true" class="h-8 pr-2 cursor-not-allowed">
+                                                      <path stroke-linecap="round" stroke-linejoin="round"
+                                                          d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z">
+                                                      </path>
+                                                  </svg>
+                                              </td>
+                                          </tr>
+                                          <tr class="h-6" *ngFor="let item of invoiceList">
+                                              <td contenteditable='false'
+                                                  class="t2-data font-medium text-left dark:text-white">
+                                                  <input type="text" class="w-full appearance-none bg-gray-light-2 truncate focus:outline-none dark:bg-gray-700" [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" >
+                                              </td>
+                                              <td contenteditable='true'
+                                                  class="t2-data font-medium text-right dark:text-white">
+                                                  {{item.price | currency}}
+                                              </td>
+                                              <td contenteditable='true'
+                                                  class="t2-data font-medium text-center dark:text-white">
+                                                  {{item.quantity}}
+                                              </td>
+                                              <td
+                                                  class="t2-data font-medium text-right dark:text-white">
+                                                  {{item.total_amount | currency}}
+                                              </td>
+
+                                              <td
+                                                  class="max-w-50 h-6 py-2 px-6 text-base font-medium hover:text-black-dark float-right whitespace-nowrap dark:text-white">
+                                                  <svg fill="none" stroke="currentColor" stroke-width="1.5"
+                                                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                      aria-hidden="true"
+                                                      class="h-8 pr-2 cursor-pointer dark:hover:text-gray-light">
+                                                      <path stroke-linecap="round" stroke-linejoin="round"
+                                                          d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z">
+                                                      </path>
+                                                  </svg>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td
+                                                  class="py-4 pr-6 text-base font-medium text-primary whitespace-nowrap dark:text-primary-thm-dark">
+                                                  <div class="flex cursor-pointer hover:text-primary-dark"
+                                                      (click)="addRow()">
+                                                      <svg fill="none" stroke="currentColor" stroke-width="1.5"
+                                                          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                          aria-hidden="true" class="h-6 pr-2">
+                                                          <path stroke-linecap="round" stroke-linejoin="round"
+                                                              d="M12 4.5v15m7.5-7.5h-15"></path>
+                                                      </svg>
+                                                      Add Item
+                                                  </div>
+                                              </td>
+                                              <td class="py-4 pr-6 text-base font-medium whitespace-nowrap dark:text-white"
+                                                  colspan="2">Total Amount</td>
+                                              <td
+                                                  class="py-4 pr-6 text-base font-bold whitespace-nowrap text-right dark:text-white">
+                                                  {{total | currency}}</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Notes  -->
+          <div class="flex flex-wrap mt-4">
+              <div class="w-full">
+                  <label class="text-xl font-bold" for="notes">
+                      Notes
+                  </label>
+                  <textarea rows="5" placeholder="Write your note here..."
+                      class="appearance-none block w-full bg-gray-light-2 rounded-xl placeholder-black focus:outline-none py-3 px-4 my-6 dark:bg-gray-700 dark:placeholder-gray-light">
+                  </textarea>
+              </div>
+          </div>
+
+          <!-- Button  -->
+          <div class="block w-full">
+              <div class="flex float-right mb-6">
+                  <a href="/detail" (click)="navigateTo('/detail')" routerLink="/detail" target="_blank">
+                      <button
+                          class="py-3 sm:py-2 px-3 my-1 sm:px-6 sm:mb-8 text-base text-white bg-primary rounded-xl min-w-[100] hover:bg-primary-dark">
+                          Create Invoice
+                      </button>
+                  </a>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
