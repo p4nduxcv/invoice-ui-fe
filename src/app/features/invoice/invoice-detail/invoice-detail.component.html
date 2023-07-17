@@ -1,3 +1,123 @@
-<p>
-  invoice-detail works!
-</p>
+<div class="p-10 pt-6">
+  <!-- Header Section -->
+  <div>
+    <div class="sm:flex">
+      <h1 class="text-3xl font-bold">Invoice&nbsp;</h1>
+      <h1 class="mt-4 sm:mt-0 text-3xl font-bold text-primary dark:text-primary-thm-dark">#{{invoiceId}}</h1>
+    </div>
+    <h4 class="text-xl text-gray-light py-5">{{companyName}}</h4>
+    <hr class="border-b-1 border-gray-light-1 dark:border-gray-700">
+  </div>
+
+  <!-- Bill Details Section  -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 py-5">
+    <div class="mb-7 sm:mb-0">
+      <div>
+        <div class="text-base">Bill From:</div>
+        <div class="py-1 text-xl">{{fromOwner}}</div>
+        <div class="text-base text-gray-dark dark:text-gray-light">{{fromAddress}}</div>
+      </div>
+      <div class="py-6">
+        <div class="text-base">Issued On:</div>
+        <div class="py-1 text-xl">{{issuedDate}}</div>
+      </div>
+      <hr class="border-b-1 border-gray-light-1 dark:border-gray-700 sm:hidden">
+    </div>
+    <div>
+      <div>
+        <div class="text-base">Bill To:</div>
+        <div class="py-1 text-xl">{{toOwner}}</div>
+        <div class="text-base text-gray-dark dark:text-gray-light">{{toAddress}}</div>
+      </div>
+      <div class="py-6">
+        <div class="text-base">Due On:</div>
+        <div class="py-1 text-xl">{{dueDate}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Section  -->
+  <div>
+    <div class="py-2">Invoice Detail</div>
+    <hr class="border-b-1 border-gray-light-1 dark:border-gray-700">
+    <div class="flex flex-col">
+      <div class="overflow-x-auto">
+        <div class="inline-block min-w-full align-middle">
+          <div class="overflow-hidden ">
+            <table class="min-w-full divide-y divide-gray-light-1 table-fixed dark:divide-gray-700">
+              <thead>
+                <tr>
+                  <th scope="col" class="t1-head text-left">
+                    Description
+                  </th>
+                  <th scope="col" class="t1-head text-right">
+                    Price
+                  </th>
+                  <th scope="col" class="t1-head text-right">
+                    Qty
+                  </th>
+                  <th scope="col" class="t1-head text-right">
+                    Total Amount
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover:bg-gray-light-1 dark:hover:bg-gray-700" *ngFor="let item of invoiceLists">
+                  <td class="t1-data text-left">
+                    {{item.description}}
+                  </td>
+                  <td class="t1-data text-right">
+                    ${{item.price}}
+                  </td>
+                  <td class="t1-data text-right">
+                    {{item.quantity}}
+                  </td>
+                  <td class="t1-data text-right">
+                    ${{item.total_amount}}
+                  </td>
+                </tr>
+                <!-- For Grand Total  -->
+                <tr>
+                  <td
+                    class="py-4 pr-6 text-base font-bold whitespace-nowrap border-t border-b border-solid border-gray-light-1 dark:text-white dark:border-gray-700"
+                    colspan="3">Grand Total</td>
+                  <td
+                    class="py-4 pr-6 text-base font-bold whitespace-nowrap border-t border-b border-solid border-gray-light-1 text-right  dark:text-white dark:border-gray-700">
+                    ${{grandTotal}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Warning Alert -->
+  <div
+    class="h-auto rounded-lg px-5 py-5 my-7 flex items-center justify-center sm:justify-start border border-solid border-warning bg-warning bg-opacity-10">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true" class="h-20 sm:h-7 pr-4 text-warning">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+    </svg>
+    <span class="text-base text-gray-dark dark:text-white">Client will get notify to make payment with any credit card,
+      debit card or bank transfer</span>
+  </div>
+
+  <!-- Buttons  -->
+  <div class="py-3 grid sm:block">
+    <div class="grid sm:float-left sm:flex">
+      <button
+        class="py-3 sm:py-2 px-3 my-2 sm:px-6 sm:mr-4 text-base text-gray-dark border border-gray-light rounded-xl hover:text-black hover:bg-gray-light-1 hover:bg-opacity-50 dark:hover:text-white dark:hover:bg-black-dark dark:text-gray-light">Cancel</button>
+    </div>
+    <div class="grid sm:float-right sm:flex">
+      <button
+        class="py-3 sm:py-2 px-3 my-2 sm:px-6 sm:mr-4 sm:mb-8 text-base text-gray-dark border border-gray-light rounded-xl hover:text-black hover:bg-gray-light-1 hover:bg-opacity-50 dark:hover:text-white dark:hover:bg-black-dark dark:text-gray-light">Save
+        as Draft</button>
+      <button
+        class="py-3 sm:py-2 px-3 my-2 sm:px-6 sm:mb-8 text-base text-white bg-primary rounded-xl min-w-[100] hover:bg-primary-dark">Send</button>
+    </div>
+  </div>
+
+</div>

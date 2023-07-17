@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ICurrency, IInvoice, IInvoiceFormData } from 'src/app/data/schema';
 
+
 @Component({
   selector: 'app-invoice-create',
   templateUrl: './invoice-create.component.html',
@@ -23,11 +24,11 @@ export class InvoiceCreateComponent implements OnInit {
 
   ngOnInit() {
     this.currencyList = [
-      { value: 1, label: 'NOK' },
+      { value: 1, label: 'USD' },
       { value: 2, label: 'LKR' },
       { value: 3, label: 'EUR' },
-      { value: 4, label: 'SGD' },
-      { value: 5, label: 'AUD' },
+      { value: 4, label: 'JPY' },
+      { value: 5, label: 'INR' },
     ];
     this.invoiceId = 'NR 00101/08/2023';
 
@@ -35,23 +36,9 @@ export class InvoiceCreateComponent implements OnInit {
     this.invoiceList = [
       {
         id: 1,
-        description: 'First Page',
-        price: 200,
-        quantity: 2,
-        total_amount: 0,
-      },
-      {
-        id: 2,
-        description: 'Second Page',
-        price: 800,
-        quantity: 5,
-        total_amount: 0,
-      },
-      {
-        id: 3,
-        description: 'Third Page',
+        description: 'Company Name',
         price: 500,
-        quantity: 2,
+        quantity: 1,
         total_amount: 0,
       },
     ];
@@ -99,19 +86,13 @@ export class InvoiceCreateComponent implements OnInit {
 
   // Calculate total amount of the invoice table
   calculateTotalHandler(): void {
-    this.total = 0;
-    for (const item of this.invoiceList) {
-      if (typeof item.price !== 'number') {
-        let updatedPrice = item.price.substring(1);
-        let updatedPriceNumber: number = parseFloat(updatedPrice);
-
-        item.total_amount = updatedPriceNumber * item.quantity;
-        this.total += item.total_amount;
-      } else {
-        item.total_amount = item.price * item.quantity;
-        this.total += item.total_amount;
-      }
-    }
+    this.total = this.invoiceList.reduce((total, item) => {
+      const price = typeof item.price === 'number'
+        ? item.price
+        : parseFloat(item.price.substring(1));
+      item.total_amount = price * item.quantity;
+      return total + item.total_amount;
+    }, 0);
   }
 
   // On table data update
