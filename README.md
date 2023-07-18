@@ -1,27 +1,44 @@
-# InvoiceUiFe
+# 🧑‍🏫 Invoice Create and Detail View Component
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+## 🧾 Description
 
-## Development server
+This is an Angular component that allows users to create and view details of an invoice. It provides a user-friendly interface to input invoice information and display a detailed view of the invoice once it is created.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## ✅ Prerequisites
 
-## Code scaffolding
+- Node.js and npm must be installed on your machine.
+- Angular CLI should be installed globally.
+- Node.js: >= 16.0.0
+- npm: >= 7.0.0
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🏗️ Installation
 
-## Build
+1. Clone this repository to your local machine.
+2. Install dependencies by running the following command:
+   ```bash
+   npm install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 👨‍💻 Usage
 
-## Running unit tests
+### Server Setup
+To start the server, run the following command:
+```bash
+npm start 
+```
+or
+```bash
+ng serve 
+```
+The application will be accessible at http://localhost:4200/invoice/create-invoice
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Here you can see bellow UI
+![Create-invoice](https://github.com/p4nduxcv/invoice-ui-fe/assets/43129749/cabff19f-b1c9-4e35-9823-e6bf0cb30357)
 
-## Running end-to-end tests
+Then Click the Create Invoice Button or type this URL http://localhost:4200/invoice/detailed-invoice
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Then You will be re-directed to the bellow UI
 
-## Further help
+![Detailed_invoice](https://github.com/p4nduxcv/invoice-ui-fe/assets/43129749/f0613a41-9720-4fb7-a44e-9cb2b03f7c06)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
