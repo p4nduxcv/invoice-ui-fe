@@ -2,7 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ICurrency, IInvoice, IInvoiceFormData } from 'src/app/data/schema';
-
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-invoice-create',
@@ -23,6 +23,7 @@ export class InvoiceCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    initFlowbite();
     this.currencyList = [
       { value: 1, label: 'USD' },
       { value: 2, label: 'LKR' },
